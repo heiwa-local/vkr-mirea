@@ -5,7 +5,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.heiwalocal.fullstackapplicantandroidapp.screens.start.StartScreen
+import com.heiwalocal.fullstackapplicantandroidapp.screens.signup.SignUpScreen
 import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.FullstackApplicantAndroidAppTheme
 
 
@@ -19,7 +19,8 @@ class MainActivity : ComponentActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         setContent {
             FullstackApplicantAndroidAppTheme {
-                StartScreen()
+                SignUpScreen()
+//                StartScreen()
             }
         }
     }
