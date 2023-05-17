@@ -5,6 +5,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -32,6 +33,8 @@ fun FullstackApplicantAndroidAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
+//    val systemUiController = rememberSystemUiController()
+//    systemUiController.setSystemBarsColor(Color.Transparent)
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {
