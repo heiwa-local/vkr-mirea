@@ -42,6 +42,7 @@ fun PasswordInputLine(
             value = password,
             visualTransformation = if (visible) VisualTransformation.None else PasswordVisualTransformation(),
             onValueChange = onValueChange,
+            singleLine = true,
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = ExtendedTheme.colors.passwordInputLineBackground,
                 placeholderColor = ExtendedTheme.colors.passwordInputLinePlaceholder,

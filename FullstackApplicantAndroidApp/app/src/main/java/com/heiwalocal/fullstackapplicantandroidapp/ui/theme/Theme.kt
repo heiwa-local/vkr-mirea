@@ -1,17 +1,19 @@
 package com.heiwalocal.fullstackapplicantandroidapp.ui.theme
 
+import android.app.Activity
+import android.view.View
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
 
 private val DarkColorPalette = darkColors(
-    primary = Purple200,
+    primary = Color(0xFFFBFBFB),
     primaryVariant = Purple700,
     secondary = Teal200
 )
@@ -41,7 +43,13 @@ data class ExtendedColors(
     val passwordInputLinePlaceholder: Color,
     val passwordInputLineIcon: Color,
     val passwordInputLineText: Color,
+    val fullNameInputLineBackground: Color,
+    val fullNameInputLinePlaceholder: Color,
+    val fullNameInputLineIcon: Color,
+    val fullNameInputLineText: Color,
     val screenBackground: Color,
+    val text: Color,
+    val hint: Color,
 )
 
 private val ExtendedDarkColorPalette by lazy {
@@ -56,7 +64,13 @@ private val ExtendedDarkColorPalette by lazy {
         passwordInputLinePlaceholder = Color(0x80000000),
         passwordInputLineIcon = Color(0x80000000),
         passwordInputLineText = Color(0x80000000),
-        screenBackground = Color(0xFFFBFBFB)
+        fullNameInputLineBackground = Color(0xFF000000),
+        fullNameInputLinePlaceholder = Color(0x80000000),
+        fullNameInputLineIcon = Color(0x80000000),
+        fullNameInputLineText = Color(0x80000000),
+        screenBackground = Color(0xFF161616),
+        text = Color(0xFF161616),
+        hint = Color(0xFF161616),
     )
 }
 
@@ -72,7 +86,13 @@ private val ExtendedLightColorPalette by lazy {
         passwordInputLinePlaceholder = Color(0x80000000),
         passwordInputLineIcon = Color(0x80000000),
         passwordInputLineText = Color(0xFF000000),
-        screenBackground = Color(0xFFFBFBFB)
+        fullNameInputLineBackground = Color(0xFFFFFFFF),
+        fullNameInputLinePlaceholder = Color(0x80000000),
+        fullNameInputLineIcon = Color(0x80000000),
+        fullNameInputLineText = Color(0xFF000000),
+        screenBackground = Color(0xFFFBFBFB),
+        text = Color(0xFF161616),
+        hint = Color(0xFF161616),
     )
 }
 
@@ -88,7 +108,13 @@ val ExtendedLocalColorPalette = staticCompositionLocalOf {
         passwordInputLinePlaceholder = Color.Unspecified,
         passwordInputLineIcon = Color.Unspecified,
         passwordInputLineText = Color.Unspecified,
+        fullNameInputLineBackground = Color.Unspecified,
+        fullNameInputLinePlaceholder = Color.Unspecified,
+        fullNameInputLineIcon = Color.Unspecified,
+        fullNameInputLineText = Color.Unspecified,
         screenBackground = Color.Unspecified,
+        text = Color.Unspecified,
+        hint = Color.Unspecified,
     )
 }
 
@@ -108,6 +134,28 @@ fun FullstackApplicantAndroidAppTheme(
     } else {
         LightColorPalette
     }
+
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as Activity).window
+            window.statusBarColor = extendedColors.screenBackground.toArgb()
+            window.navigationBarColor = extendedColors.screenBackground.toArgb()
+
+//            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            if (darkTheme) {
+                // Draw light icons on a dark background color
+                window.decorView.systemUiVisibility = window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+            } else {
+                // Draw dark icons on a light background color
+                window.decorView.systemUiVisibility = window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+
+//            WindowCompat.getInsetsController(window, view)?.isAppearanceLightStatusBars = darkTheme
+//            WindowCompat.getInsetsController(window, view)?.isAppearanceLightNavigationBars = darkTheme
+        }
+    }
+
     CompositionLocalProvider(
         ExtendedLocalColorPalette provides extendedColors,
     ) {
@@ -125,5 +173,5 @@ object ExtendedTheme {
         @Composable
         @ReadOnlyComposable
         get() = ExtendedLocalColorPalette.current
-    val typography = kotlin.text.Typography
+    val typography = Typography
 }

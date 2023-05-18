@@ -1,16 +1,16 @@
 package com.heiwalocal.fullstackapplicantandroidapp.ui.components.inputfields
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.FindInPage
+import androidx.compose.material.icons.filled.NextWeek
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.SkipNext
+import androidx.compose.material.icons.rounded.AccessAlarm
+import androidx.compose.material.icons.rounded.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,22 +19,23 @@ import androidx.compose.ui.unit.dp
 import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 
 @Composable
-fun EmailInputLine(
-    email: String,
+fun SearchInputLine(
+    text: String,
     modifier: Modifier = Modifier,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    onNextClick: () -> Unit
 ) {
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(12.dp))
             .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
             .background(ExtendedTheme.colors.emailInputLineBackground)
     ) {
         TextField(
             modifier = Modifier
-                .padding(4.dp)
-                .fillMaxWidth(),
-            value = email,
+                .fillMaxWidth()
+                .padding(4.dp),
+            value = text,
             onValueChange = onValueChange,
             singleLine = true,
             colors = TextFieldDefaults.textFieldColors(
@@ -47,8 +48,16 @@ fun EmailInputLine(
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent
             ),
-            leadingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = null) },
-            placeholder = { Text(text = "Почта") }
+            leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = null) },
+            trailingIcon = {
+                IconButton(onClick = onNextClick) {
+                    Icon(
+                        imageVector = Icons.Rounded.KeyboardArrowRight,
+                        contentDescription = null
+                    )
+                }
+            },
+            placeholder = { Text(text = "Ключевые слова") }
         )
     }
 }
