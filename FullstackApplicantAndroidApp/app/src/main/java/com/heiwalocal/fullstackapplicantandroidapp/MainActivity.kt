@@ -9,7 +9,9 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.ContextCompat
 import com.heiwalocal.fullstackapplicantandroidapp.screens.home.HomeScreen
 import com.heiwalocal.fullstackapplicantandroidapp.screens.login.LoginScreen
+import com.heiwalocal.fullstackapplicantandroidapp.screens.search.SearchScreen
 import com.heiwalocal.fullstackapplicantandroidapp.screens.signup.SignUpScreen
+import com.heiwalocal.fullstackapplicantandroidapp.screens.vacancydetail.VacancyDetailScreen
 import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.FullstackApplicantAndroidAppTheme
 
@@ -27,7 +29,9 @@ class MainActivity : ComponentActivity() {
 //                LoginScreen()
 //                StartScreen()
 //                SignUpScreen()
-                HomeScreen()
+//                HomeScreen()
+//                SearchScreen()
+                VacancyDetailScreen()
             }
         }
     }
