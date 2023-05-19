@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.heiwalocal.domain.repositories.VacancyRepository
 import com.heiwalocal.fullstackapplicantandroidapp.ui.components.cards.SmallVacancyCard
 import com.heiwalocal.fullstackapplicantandroidapp.ui.components.inputfields.SearchInputLine
 import com.heiwalocal.fullstackapplicantandroidapp.ui.components.modalbottomsheets.SearchFilterModalBottomSheet
@@ -29,7 +30,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SearchScreen(
-
+    viewModel: SearchViewModel
 ) {
     val bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
@@ -54,7 +55,7 @@ fun SearchScreen(
                         IconButton(
                             modifier = Modifier
                                 .padding(16.dp),
-                            onClick = { /*TODO*/ }
+                            onClick = { viewModel.setEvent(SearchContract.SearchEvent.getVacanciesByKeywords("asd")) }
                         ) {
                             Icon(
                                 imageVector = Icons.Default.KeyboardArrowLeft,

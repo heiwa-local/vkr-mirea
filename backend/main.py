@@ -1,16 +1,33 @@
-# This is a sample Python script.
+from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+app = FastAPI()
 
+origins = ["*"]
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
+@app.get("/api/v1/vacancies")
+def get_vacancies_by_keywords(
+    keywords: str
+):
+    vacancies = [
+        {
+            "organization_name": "Google",
+            "organization_logo_url": "123123",
+            "job_title": "UI/UX Designer",
+            "salary": 45000.00,
+            "address": "Канада, Торонто"
+        }
+    ]
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    return {
+        "count": len(vacancies),
+        "items": vacancies,
+    }
