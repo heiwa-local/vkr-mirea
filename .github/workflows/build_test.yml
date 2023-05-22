@@ -14,14 +14,14 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Make gradlew executable
-        run: chmod +x ./gradlew
+        run: chmod +x .FullstackApplicantAndroidApp/gradlew
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
       - name: Grant Permissions to gradlew
-        run: chmod +x ./gradlew
+        run: chmod +x .FullstackApplicantAndroidApp/gradlew
       - name: Build with Gradle
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: build
       - name: Test
-        run: ./gradlew clean test 
+        run: .FullstackApplicantAndroidApp/gradlew clean test 
