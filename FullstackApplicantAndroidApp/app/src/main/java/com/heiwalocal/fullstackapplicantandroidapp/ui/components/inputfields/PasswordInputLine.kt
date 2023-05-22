@@ -24,7 +24,8 @@ import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 fun PasswordInputLine(
     password: String,
     modifier: Modifier = Modifier,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    onDoneClick: () -> Unit = {}
 ) {
 
     var visible by remember { mutableStateOf(false) }

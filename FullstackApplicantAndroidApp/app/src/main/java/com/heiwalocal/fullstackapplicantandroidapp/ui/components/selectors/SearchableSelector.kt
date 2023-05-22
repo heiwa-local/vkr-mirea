@@ -1,28 +1,35 @@
 package com.heiwalocal.fullstackapplicantandroidapp.ui.components.selectors
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun SearchableSelector(
+    value: String,
     modifier: Modifier = Modifier,
-    items: Array<String>
+    items: List<String>,
+    onDoneClick: () -> Unit = {},
+    onValueChange: (String) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf("") }
+
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Box(
         modifier = modifier
@@ -40,8 +47,8 @@ fun SearchableSelector(
                 modifier = Modifier
                     .padding(4.dp)
                     .fillMaxWidth(),
-                value = selectedText,
-                onValueChange = { selectedText = it },
+                value = value,
+                onValueChange = { onValueChange(it) },
                 singleLine = true,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
                 colors = TextFieldDefaults.textFieldColors(
@@ -54,6 +61,15 @@ fun SearchableSelector(
                     unfocusedIndicatorColor = Color.Transparent,
                     disabledIndicatorColor = Color.Transparent
                 ),
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        onDoneClick()
+                        keyboardController?.hide()
+                    }
+                ),
                 placeholder = {
                     Text(
                         text = "Выберите направление",
@@ -63,7 +79,7 @@ fun SearchableSelector(
             )
 
             val filteredOptions =
-                items.filter { it.contains(selectedText, ignoreCase = true) }
+                items.filter { it.contains(value, ignoreCase = true) }
             if (filteredOptions.isNotEmpty()) {
                 ExposedDropdownMenu(
                     expanded = expanded,
@@ -74,8 +90,10 @@ fun SearchableSelector(
                     filteredOptions.forEach { item ->
                         DropdownMenuItem(
                             onClick = {
-                                selectedText = item
+                                onValueChange(item)
+                                onDoneClick()
                                 expanded = false
+                                keyboardController?.hide()
                             }
                         ) {
                             Text(text = item)

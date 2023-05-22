@@ -50,6 +50,7 @@ data class ExtendedColors(
     val screenBackground: Color,
     val text: Color,
     val hint: Color,
+    val close: Color,
 )
 
 private val ExtendedDarkColorPalette by lazy {
@@ -71,6 +72,7 @@ private val ExtendedDarkColorPalette by lazy {
         screenBackground = Color(0xFF161616),
         text = Color(0xFF161616),
         hint = Color(0xFF161616),
+        close = Color(0xFF161616),
     )
 }
 
@@ -92,7 +94,8 @@ private val ExtendedLightColorPalette by lazy {
         fullNameInputLineText = Color(0xFF000000),
         screenBackground = Color(0xFFFBFBFB),
         text = Color(0xFF161616),
-        hint = Color(0xFF161616),
+        hint = Color(0x80161616),
+        close = Color(0xFFA84C4C),
     )
 }
 
@@ -115,6 +118,7 @@ val ExtendedLocalColorPalette = staticCompositionLocalOf {
         screenBackground = Color.Unspecified,
         text = Color.Unspecified,
         hint = Color.Unspecified,
+        close = Color.Unspecified,
     )
 }
 

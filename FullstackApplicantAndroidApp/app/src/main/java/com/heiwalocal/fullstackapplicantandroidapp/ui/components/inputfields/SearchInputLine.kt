@@ -3,6 +3,9 @@ package com.heiwalocal.fullstackapplicantandroidapp.ui.components.inputfields
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActionScope
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FindInPage
@@ -15,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 
@@ -57,6 +61,12 @@ fun SearchInputLine(
                     )
                 }
             },
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = { onNextClick() }
+            ),
             placeholder = { Text(text = "Ключевые слова") }
         )
     }

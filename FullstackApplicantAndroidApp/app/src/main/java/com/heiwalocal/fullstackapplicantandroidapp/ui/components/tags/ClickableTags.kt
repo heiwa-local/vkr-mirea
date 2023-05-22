@@ -21,20 +21,17 @@ fun ClickableTags(
     modifier: Modifier = Modifier,
     selectedColor: Color,
     unselectedColor: Color,
-    text: String
+    text: String,
+    onClick: (Boolean) -> Unit
 ) {
     var selected by remember { mutableStateOf(false) }
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp))
             .background(if (selected) {selectedColor} else {unselectedColor})
-            .border(
-                width = 1.dp,
-                color = Color.Black,
-                shape = RoundedCornerShape(16.dp)
-            )
             .clickable {
                 selected = !selected
+                onClick(selected)
             }
     ) {
         Text(

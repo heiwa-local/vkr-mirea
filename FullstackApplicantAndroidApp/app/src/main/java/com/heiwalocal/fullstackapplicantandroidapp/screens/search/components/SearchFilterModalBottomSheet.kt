@@ -1,41 +1,49 @@
 package com.heiwalocal.fullstackapplicantandroidapp.ui.components.modalbottomsheets
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetLayout
-import androidx.compose.material.ModalBottomSheetState
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.heiwalocal.domain.entities.Direction
 import com.heiwalocal.fullstackapplicantandroidapp.ui.components.LargeButton
 import com.heiwalocal.fullstackapplicantandroidapp.ui.components.inputfields.InputLine
 import com.heiwalocal.fullstackapplicantandroidapp.ui.components.selectors.SearchableSelector
+import com.heiwalocal.fullstackapplicantandroidapp.ui.components.selectors.Selector
 import com.heiwalocal.fullstackapplicantandroidapp.ui.components.tags.ClickableTags
 import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
+import com.heiwalocal.fullstackapplicantandroidapp.utils.EMPLOYMENT
+import com.heiwalocal.fullstackapplicantandroidapp.utils.REGIONS
+import com.heiwalocal.fullstackapplicantandroidapp.utils.TYPES
+import com.heiwalocal.fullstackapplicantandroidapp.utils.getKey
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun SearchFilterModalBottomSheet(
     sheetState: ModalBottomSheetState,
-    onConfirmClick: () -> Unit,
+    directions: List<Direction>?,
+    onConfirmClick: (Map<String, String?>) -> Unit,
     content: @Composable () -> Unit,
 ) {
 
+    var type by remember { mutableStateOf("") }
     var salary by remember { mutableStateOf("") }
+    val tags by remember { mutableStateOf(mutableListOf<String>()) }
 
     ModalBottomSheetLayout(
+//        scrimColor = Color.Transparent,
         sheetBackgroundColor = ExtendedTheme.colors.screenBackground,
         sheetContent = {
             Column(
@@ -43,12 +51,17 @@ fun SearchFilterModalBottomSheet(
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-                Text(
+                Column(
                     modifier = Modifier.fillMaxWidth(),
-                    text = "Фильтр",
-                    style = ExtendedTheme.typography.h2,
-                    textAlign = TextAlign.Center
-                )
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Divider(
+                        modifier = Modifier
+                            .fillMaxWidth(0.4f)
+                            .padding(top = 4.dp),
+                        thickness = 3.dp
+                    )
+                }
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -56,10 +69,12 @@ fun SearchFilterModalBottomSheet(
                     text = "Категория",
                     style = ExtendedTheme.typography.h3,
                 )
-                SearchableSelector(
+                Selector(
+                    value = type,
                     modifier = Modifier
                         .padding(top = 8.dp),
-                    items = arrayOf("UX/UI Design", "Backend", "Frontend")
+                    items = directions?.map { it.name } ?: emptyList(),
+                    onValueChange = { type = it },
                 )
                 Row(
                     modifier = Modifier
@@ -67,23 +82,6 @@ fun SearchFilterModalBottomSheet(
                         .padding(top = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth(0.5f)
-                    ) {
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 16.dp),
-                            text = "Регион",
-                            style = ExtendedTheme.typography.h3,
-                        )
-                        SearchableSelector(
-                            modifier = Modifier
-                                .padding(top = 8.dp),
-                            items = arrayOf("Москва", "Санкт-Петербург")
-                        )
-                    }
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -123,22 +121,39 @@ fun SearchFilterModalBottomSheet(
                 LazyVerticalGrid(
                     modifier = Modifier
                         .padding(top = 16.dp),
-                    cells = GridCells.Adaptive(minSize = 128.dp),
+                    columns = GridCells.Adaptive(minSize = 128.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(arrayOf("1","2", "3")) { photo ->
+                    items(EMPLOYMENT.values.map { it }) { photo ->
                         ClickableTags(
                             selectedColor = ExtendedTheme.colors.largeButtonBackground,
                             unselectedColor = ExtendedTheme.colors.largeButtonContent,
-                            text = "Полная занятость"
+                            text = photo,
+                            onClick = {
+                                if (it) {
+                                    tags.add(getKey(EMPLOYMENT, photo)!!)
+                                } else {
+                                    tags.remove(getKey(EMPLOYMENT, photo)!!)
+                                }
+                                Log.e("bbbb", tags.toString())
+
+                            }
                         )
                     }
                 }
                 LargeButton(
                     modifier = Modifier
                         .padding(top = 16.dp),
-                    onClick = onConfirmClick
+                    onClick = {
+                        onConfirmClick(
+                            mapOf(
+                                "type" to type,
+                                "salary" to salary,
+                                "tags" to tags.joinToString(separator = ",")
+                            )
+                        )
+                    }
                 ) {
                     Text(text = "Применить")
                 }

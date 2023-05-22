@@ -1,23 +1,52 @@
 package com.heiwalocal.fullstackapplicantandroidapp.screens.start
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.heiwalocal.fullstackapplicantandroidapp.R
+import com.heiwalocal.fullstackapplicantandroidapp.navigation.NavigationRouter
 import com.heiwalocal.fullstackapplicantandroidapp.ui.components.LargeButton
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.delay
 
 @Composable
 fun StartScreen (
-
+    navController: NavController,
+    viewModel: StartViewModel
 ) {
+    LaunchedEffect(key1 = true) {
+        Log.e("tesss", "start")
+        val isAuth = viewModel.checkAuth()
+        if (isAuth) {
+            Log.e("tesss", "true")
+            navController.navigate(NavigationRouter.Home.route) {
+                popUpTo(NavigationRouter.Home.route) {
+                    inclusive = true
+                }
+            }
+        } else {
+            Log.e("tesss", "false")
+            navController.navigate(NavigationRouter.Login.route) {
+                popUpTo(NavigationRouter.Login.route) {
+                    inclusive = true
+                }
+            }
+        }
+    }
+
     Scaffold {
         Column(
             modifier = Modifier
@@ -45,14 +74,6 @@ fun StartScreen (
                 text = "Вместе с FullStack это проще простого",
                 textAlign = TextAlign.Center
             )
-            LargeButton(
-                modifier = Modifier
-                    .padding(top = 16.dp),
-                onClick = { /*TODO*/ }
-            ) {
-                Text(text = "Начать")
-                Icon(imageVector = Icons.Default.KeyboardArrowRight, contentDescription = null)
-            }
         }
     }
 }

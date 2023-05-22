@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.heiwalocal.fullstackapplicantandroidapp.ui.components.images.OrganizationLogoImage
 import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -22,6 +23,7 @@ import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 fun LargeVacancyCard(
     modifier: Modifier = Modifier,
     organizationName: String,
+    organizationLogoUrl: String,
     jobTitle: String,
     salary: String,
     address: String,
@@ -31,6 +33,7 @@ fun LargeVacancyCard(
         modifier = modifier
             .width(260.dp),
         shape = RoundedCornerShape(16.dp),
+        elevation = 0.dp,
         onClick = onClick
     ) {
         Column(
@@ -41,27 +44,20 @@ fun LargeVacancyCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Column{
-                    Box(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(
-                                ExtendedTheme.colors.largeButtonBackground
-                            ),
-                    ) {
-                        Icon(
-                            modifier = Modifier
-                                .padding(4.dp),
-                            imageVector = Icons.Default.Group,
-                            contentDescription = null
-                        )
-                    }
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                    OrganizationLogoImage(
+                        size = 60.dp,
+                        url = organizationLogoUrl
+                    )
                     Text(
                         modifier = Modifier
-                            .padding(top = 8.dp),
+                            .padding(top = 8.dp)
+                            .width(60.dp),
                         text = organizationName,
+                        maxLines = 1,
                         style = ExtendedTheme.typography.body2,
                         color = ExtendedTheme.colors.hint
                     )
@@ -71,21 +67,25 @@ fun LargeVacancyCard(
                 modifier = Modifier
                     .padding(top = 16.dp),
                 text = jobTitle,
+                maxLines = 1,
                 style = ExtendedTheme.typography.h3,
                 color = ExtendedTheme.colors.text
             )
             Row(
                 modifier = Modifier
-                    .padding(top = 8.dp)
+                    .padding(top = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(
-                    text = salary,
+                    text = "$salary руб/мес",
                     style = ExtendedTheme.typography.h4,
+                    maxLines = 1,
                     color = ExtendedTheme.colors.text
                 )
                 Text(
                     text = address,
                     style = ExtendedTheme.typography.body2,
+                    maxLines = 1,
                     color = ExtendedTheme.colors.hint
                 )
             }

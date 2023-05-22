@@ -15,6 +15,8 @@ import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 @Composable
 fun LargeButton(
     modifier: Modifier = Modifier,
+    backgroundColor: Color = ExtendedTheme.colors.largeButtonBackground,
+    enabled: Boolean = true,
     onClick: () -> Unit,
     component: @Composable() () -> Unit
 ) {
@@ -22,8 +24,9 @@ fun LargeButton(
         modifier = modifier
             .fillMaxWidth(),
         onClick = onClick,
+        enabled = enabled,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = ExtendedTheme.colors.largeButtonBackground,
+            backgroundColor = backgroundColor,
             contentColor = ExtendedTheme.colors.largeButtonContent
         ),
         shape = RoundedCornerShape(12.dp)

@@ -1,6 +1,7 @@
 package com.heiwalocal.fullstackapplicantandroidapp.ui.components.tabs
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,20 +19,29 @@ import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 @Composable
 fun Tabs(
     modifier: Modifier = Modifier,
+    selected: String,
+    onSelectedChange: (String) -> Unit,
     items: Array<String>
 ) {
     LazyRow(
         modifier = modifier
             .fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(items) {
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(16.dp))
                     .background(
-                        ExtendedTheme.colors.largeButtonBackground
+                        if (it == selected) {
+                            ExtendedTheme.colors.largeButtonBackground
+                        } else {
+                            ExtendedTheme.colors.largeButtonContent
+                        }
                     )
+                    .clickable {
+                        onSelectedChange(it)
+                    }
             ) {
                 Text(
                     modifier = Modifier
