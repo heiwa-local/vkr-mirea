@@ -36,10 +36,6 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        window.setFlags(
-//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-//        )
 
         setContent {
             FullstackApplicantAndroidAppTheme {
@@ -56,16 +52,6 @@ class MainActivity : ComponentActivity() {
                     homeViewModel = homeViewModel,
                     resumeDetailViewModel = resumeDetailViewModel
                 )
-//                LoginScreen()
-//                StartScreen()
-//                SignUpScreen()
-//                HomeScreen(
-//                    navController = NavController(this)
-//                )
-//                SearchScreen(
-//                    viewModel = searchViewModel
-//                )
-//                VacancyDetailScreen()
             }
         }
     }

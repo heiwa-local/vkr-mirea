@@ -47,7 +47,12 @@ fun Tabs(
                     modifier = Modifier
                         .padding(16.dp)
                     ,
-                    text = it
+                    text = it,
+                    color = if (it == selected) {
+                        ExtendedTheme.colors.largeButtonContent
+                    } else {
+                        ExtendedTheme.colors.text
+                    }
                 )
             }
         }

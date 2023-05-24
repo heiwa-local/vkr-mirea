@@ -1,21 +1,13 @@
-from datetime import timedelta, datetime
-
 from fastapi import FastAPI, Depends
-from fastapi.security import OAuth2PasswordBearer, HTTPBearer, HTTPAuthorizationCredentials, OAuth2PasswordRequestForm
-from jose import jwt
-from passlib.context import CryptContext
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 from starlette.middleware.cors import CORSMiddleware
-from typing import Optional, Union, Annotated
+from typing import Optional
 
-import applicant_service
-import auth_service as AuthService
-import grade_service
-import job_posting_service
-import resume_service
-import vacancy_service
-from direction_service import get_all_directions
-from vacancy_service import get_vacancies_by_keywords_and_params
+from services import applicant_service, auth_service, job_posting_service, resume_service, vacancy_service, \
+    grade_service
+from services.direction_service import get_all_directions
+from services.vacancy_service import get_vacancies_by_keywords_and_params
 
 app = FastAPI()
 
@@ -98,7 +90,7 @@ async def get_vacancy_info_by_vacancy_id(
 ):
     try:
         bearer_auth = credentials.credentials
-        user_id = AuthService.decode_jwt(str(bearer_auth))["user_id"]
+        user_id = auth_service.decode_jwt(str(bearer_auth))["user_id"]
 
         vacancy = vacancy_service.get_vacancy_by_id(vacancy_id, user_id)
         if vacancy is not None:
@@ -124,7 +116,7 @@ async def get_resumes(
     #     "token": bearer_auth
     # })
 
-        user_id = AuthService.decode_jwt(str(bearer_auth))["user_id"]
+        user_id = auth_service.decode_jwt(str(bearer_auth))["user_id"]
         resumes =  resume_service.get_resumes(user_id)
         print(resumes)
         return {
@@ -179,7 +171,7 @@ async def post_job_posting(
     try:
         token = credentials.credentials
 
-        tok = AuthService.create_jwt_token({
+        tok = auth_service.create_jwt_token({
             "token": token
         })
 
@@ -216,10 +208,10 @@ async def login(
     body: LoginBody,
 ):
     try:
-        user = AuthService.authenticate_user(body.email, body.password)
+        user = auth_service.authenticate_user(body.email, body.password)
 
         if user is not None:
-            access_token = AuthService.create_jwt_token(
+            access_token = auth_service.create_jwt_token(
                 {
                     "user_id": user["id"]
                 }
@@ -249,7 +241,7 @@ async def sign_up(
     body: SignUpBody,
 ):
     try:
-        result = AuthService.create_user(
+        result = auth_service.create_user(
             name=body.name,
             phone=body.phone,
             email=body.email,
@@ -298,7 +290,7 @@ async def create_resume(
 ):
     try:
         token = credentials.credentials
-        payload = AuthService.decode_jwt(token)
+        payload = auth_service.decode_jwt(token)
         print("11111", body, payload)
         result = resume_service.create_resume(
             applicant_id=payload["user_id"],
@@ -337,13 +329,14 @@ async def get_grades(
             "status": "error"
         }
 
+
 @app.get("/api/v1/jobs_postings")
 async def get_jobs_postings(
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ):
     try:
         bearer_auth = credentials.credentials
-        user_id = AuthService.decode_jwt(str(bearer_auth))["user_id"]
+        user_id = auth_service.decode_jwt(str(bearer_auth))["user_id"]
         jobs_postings = job_posting_service.get_jobs_postings(user_id)
         return {
             "items": jobs_postings
@@ -365,7 +358,7 @@ async def delete_job_posting(
 ):
     try:
         bearer_auth = credentials.credentials
-        user_id = AuthService.decode_jwt(str(bearer_auth))["user_id"]
+        user_id = auth_service.decode_jwt(str(bearer_auth))["user_id"]
         id = job_posting_service.delete_job_posting(body.job_posting_id)
         if id is not None:
             return {
@@ -403,7 +396,7 @@ async def get_recommended_vacancies(
 ):
     try:
         bearer_auth = credentials.credentials
-        user_id = AuthService.decode_jwt(str(bearer_auth))["user_id"]
+        user_id = auth_service.decode_jwt(str(bearer_auth))["user_id"]
 
         vacancies = vacancy_service.get_recommended_vacancies(user_id)
 
@@ -448,7 +441,7 @@ async def delete_resume(
 ):
     try:
         bearer_auth = credentials.credentials
-        user_id = AuthService.decode_jwt(str(bearer_auth))["user_id"]
+        user_id = auth_service.decode_jwt(str(bearer_auth))["user_id"]
         id = resume_service.delete_resume(body.resume_id)
         if id is not None:
             return {
@@ -468,7 +461,7 @@ async def get_applicant(
 ):
     try:
         bearer_auth = credentials.credentials
-        user_id = AuthService.decode_jwt(str(bearer_auth))["user_id"]
+        user_id = auth_service.decode_jwt(str(bearer_auth))["user_id"]
 
         applicant = applicant_service.get_applicant(user_id=user_id)
 

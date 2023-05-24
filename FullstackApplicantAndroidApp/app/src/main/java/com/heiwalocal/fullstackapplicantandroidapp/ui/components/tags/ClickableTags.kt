@@ -39,7 +39,12 @@ fun ClickableTags(
                 .padding(8.dp)
                 .fillMaxWidth(),
             text = text,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            color = if (selected) {
+                ExtendedTheme.colors.largeButtonContent
+            } else {
+                ExtendedTheme.colors.text
+            }
         )
     }
 }

@@ -25,8 +25,6 @@ import com.heiwalocal.fullstackapplicantandroidapp.ui.components.selectors.Selec
 import com.heiwalocal.fullstackapplicantandroidapp.ui.components.tags.ClickableTags
 import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 import com.heiwalocal.fullstackapplicantandroidapp.utils.EMPLOYMENT
-import com.heiwalocal.fullstackapplicantandroidapp.utils.REGIONS
-import com.heiwalocal.fullstackapplicantandroidapp.utils.TYPES
 import com.heiwalocal.fullstackapplicantandroidapp.utils.getKey
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)

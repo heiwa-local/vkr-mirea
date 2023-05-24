@@ -25,9 +25,7 @@ import androidx.navigation.NavHostController
 import com.heiwalocal.fullstackapplicantandroidapp.navigation.NavigationRouter
 import com.heiwalocal.fullstackapplicantandroidapp.screens.login.components.LoginTopBar
 import com.heiwalocal.fullstackapplicantandroidapp.ui.components.LargeButton
-import com.heiwalocal.fullstackapplicantandroidapp.ui.components.inputfields.EmailInputLine
 import com.heiwalocal.fullstackapplicantandroidapp.ui.components.inputfields.InputLine
-import com.heiwalocal.fullstackapplicantandroidapp.ui.components.inputfields.PasswordInputLine
 import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 import kotlinx.coroutines.launch
 

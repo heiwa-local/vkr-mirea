@@ -55,7 +55,7 @@ fun VacancyInfoJobPostingModalBottomSheet(
                     text = "Выберите резюме",
                     style = ExtendedTheme.typography.h2
                 )
-                if (resumes != null) {
+                if (resumes != null && resumes.isNotEmpty()) {
                     LazyRow(
                         modifier = Modifier
                             .padding(top = 8.dp)
@@ -73,6 +73,21 @@ fun VacancyInfoJobPostingModalBottomSheet(
                                 }
                             )
                         }
+                    }
+                } else {
+                    Column(
+                        modifier = Modifier
+                            .padding(top = 16.dp)
+                            .fillMaxWidth()
+                            .height(100.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = "Создайте резюме, чтобы оставить отклик",
+                            style = ExtendedTheme.typography.h3,
+                            color = ExtendedTheme.colors.hint
+                        )
                     }
                 }
                 LargeButton(

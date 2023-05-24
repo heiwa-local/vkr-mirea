@@ -15,6 +15,15 @@ import java.util.Objects
 const val BASE_URL = "http://10.0.2.2:8081/api/v1/"
 
 interface FullstackApiInterface {
+    companion object ApiUtilities {
+
+        fun getInstance(): Retrofit {
+            return Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+    }
     @GET("vacancies")
     fun getVacanciesByKeywords(
         @Query("keywords") keywords: String,
@@ -102,13 +111,4 @@ interface FullstackApiInterface {
         @Header("Authorization") authHeader: String
     ): Call<ApplicantResponse>
 
-    companion object ApiUtilities {
-
-        fun getInstance(): Retrofit {
-            return Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-    }
 }

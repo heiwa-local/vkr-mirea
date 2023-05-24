@@ -9,10 +9,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val repositoriesModule = module {
-
-    single { FullstackApiService() }
-    single { LocalDatabaseService( LocalDatabase.create(androidContext()) ) }
-
     single<VacancyRepository> { VacancyRepositoryImpl(get()) }
     single<ResumeRepository> { ResumeRepositoryImpl(get()) }
     single<JobPostingRepository> { JobPostingRepositoryImpl(get(), get()) }
@@ -20,4 +16,9 @@ val repositoriesModule = module {
     single<DirectionRepository> { DirectionRepositoryImpl(get()) }
     single<GradeRepository> { GradeRepositoryImpl(get()) }
     single<ApplicantRepository> { ApplicantRepositoryImpl(get()) }
+}
+
+val servicesModules = module {
+    single { FullstackApiService() }
+    single { LocalDatabaseService( LocalDatabase.create(androidContext()) ) }
 }

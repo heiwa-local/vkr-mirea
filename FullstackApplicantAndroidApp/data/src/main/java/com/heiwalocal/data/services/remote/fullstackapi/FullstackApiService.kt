@@ -20,7 +20,6 @@ class FullstackApiService {
         salary: String?,
         employments: String?
     ): ListResponse<VacancyResponse>? {
-        Log.e("tttt", "${type.toString()} ${salary.toString()}")
         val call = api.getVacanciesByKeywords(
             keywords = keywords.replace(" ", "%"),
             directionId = if (type?.trim()?.length == 0) {null} else {type},
@@ -28,7 +27,6 @@ class FullstackApiService {
             employments = if (employments?.trim()?.length == 0) {null} else {employments}
 
         )
-        Log.e("tttt", call.toString())
         val response = call.execute()
 
         if (response.body() != null) {

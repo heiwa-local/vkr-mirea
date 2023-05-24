@@ -1,12 +1,9 @@
 package com.heiwalocal.fullstackapplicantandroidapp.navigation.components
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Cloud
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
-import com.heiwalocal.fullstackapplicantandroidapp.R
 import com.heiwalocal.fullstackapplicantandroidapp.navigation.NavigationRouter
 
 @Composable

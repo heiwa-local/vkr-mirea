@@ -39,7 +39,6 @@ import com.heiwalocal.fullstackapplicantandroidapp.ui.components.tags.ClickableT
 import com.heiwalocal.fullstackapplicantandroidapp.ui.components.tags.DeletableTags
 import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 import com.heiwalocal.fullstackapplicantandroidapp.utils.EMPLOYMENT
-import com.heiwalocal.fullstackapplicantandroidapp.utils.TYPES
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch

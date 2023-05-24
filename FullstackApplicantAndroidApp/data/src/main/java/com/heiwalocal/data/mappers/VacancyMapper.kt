@@ -1,6 +1,5 @@
 package com.heiwalocal.data.mappers
 
-import com.heiwalocal.data.entities.VacanciesByKeywordsResponse
 import com.heiwalocal.data.entities.VacancyResponse
 import com.heiwalocal.data.mappers.base.BaseMapper
 import com.heiwalocal.domain.entities.Vacancies

@@ -33,17 +33,20 @@ fun DeletableTags(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 imageVector = Icons.Rounded.Close,
-                contentDescription = null
+                contentDescription = null,
+                tint = ExtendedTheme.colors.largeButtonContent
             )
             Text(
-                modifier = Modifier,
+                modifier = Modifier
+                    .padding(end = 4.dp),
                 text = text,
                 maxLines = 1,
+                color = ExtendedTheme.colors.largeButtonContent
             )
         }
     }
