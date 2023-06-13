@@ -66,6 +66,7 @@ fun VacancyInfoJobPostingModalBottomSheet(
                             SmallResumeCard(
                                 jobTitle = it.jobTitle.toString(),
                                 background = if (selected == it.id.toString()) {ExtendedTheme.colors.largeButtonBackground} else {ExtendedTheme.colors.largeButtonContent},
+                                content = if (selected == it.id.toString()) {ExtendedTheme.colors.largeButtonContent} else {ExtendedTheme.colors.text},
                                 salary = it.salary.toString(),
                                 datetime = it.datetime.toString(),
                                 onClick = {

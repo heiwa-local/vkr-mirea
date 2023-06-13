@@ -67,7 +67,7 @@ def get_resume(
             "applicant_id": results[1],
             "job_title": results[2],
             "grade": results[11],
-            "address": results[8],
+            "address": results[9],
             "salary": results[3],
             "skills": results[4],
             "education": results[5],

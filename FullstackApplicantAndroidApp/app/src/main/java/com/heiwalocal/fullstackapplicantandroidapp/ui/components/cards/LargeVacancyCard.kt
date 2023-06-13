@@ -77,7 +77,7 @@ fun LargeVacancyCard(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(
-                    text = "$salary руб/мес",
+                    text = "${salary.toDouble().toInt()} руб/мес",
                     style = ExtendedTheme.typography.h4,
                     maxLines = 1,
                     color = ExtendedTheme.colors.text

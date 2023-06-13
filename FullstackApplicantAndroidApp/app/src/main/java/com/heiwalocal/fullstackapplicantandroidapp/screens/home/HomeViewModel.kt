@@ -9,6 +9,7 @@ import com.heiwalocal.fullstackapplicantandroidapp.base.BaseViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeViewModel(
     private val getLastAddedVacanciesUseCase: GetLastAddedVacanciesUseCase,
@@ -26,13 +27,13 @@ class HomeViewModel(
     val lastAddedVacancies: LiveData<List<Vacancy>?>
         get() { return _lastAddedVacancies }
 
-    fun getRecommendedVacancies() = launch(Dispatchers.IO + coroutineExceptionHandler) {
+    suspend fun getRecommendedVacancies() = withContext(Dispatchers.IO + coroutineExceptionHandler) {
         _recommendedVacancies.postValue(
             getRecommendedVacanciesUseCase.invoke()
         )
     }
 
-    fun getLastAddedVacancies() = launch(Dispatchers.IO + coroutineExceptionHandler) {
+    suspend fun getLastAddedVacancies() = withContext(Dispatchers.IO + coroutineExceptionHandler) {
         _lastAddedVacancies.postValue(
             getLastAddedVacanciesUseCase.invoke()
         )

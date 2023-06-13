@@ -127,7 +127,6 @@ def get_recommended_vacancies(
     try:
         query1 = f"SELECT job_title, skills FROM v1.resume WHERE applicant_id = {user_id}"
         result1 = database_service.fetch_all(query1)
-        print(result1)
         param_query = ""
         for resume in result1:
             job_title = resume[0]
@@ -138,13 +137,12 @@ def get_recommended_vacancies(
                 if skill.replace(" ", "") != "":
                     param_query += f"v1.vacancy.job_title LIKE '%{skill}%' OR v1.vacancy.description LIKE '%{skill}%' OR "
             param_query = param_query[:-3]
-        print("papa", len(param_query))
         if len(param_query) > 0:
             param_query = "WHERE " + param_query[4:]
-        query = f"SELECT v1.vacancy.id, v1.organization.name, v1.organization.logo_url, v1.vacancy.job_title, v1.vacancy.salary, v1.vacancy.address, v1.vacancy.datetime FROM v1.vacancy JOIN v1.organization ON v1.vacancy.organization_id=v1.organization.id " + param_query
-        print(query)
+        query = f"SELECT v1.vacancy.id, v1.organization.name, v1.organization.logo_url, v1.vacancy.job_title, " \
+                f"v1.vacancy.salary, v1.vacancy.address, v1.vacancy.datetime FROM v1.vacancy JOIN v1.organization ON " \
+                f"v1.vacancy.organization_id=v1.organization.id " + param_query
         result = database_service.fetch_all(query)
-        print(result)
         vacancies = []
         for vacancy in result:
             vacancies.append(

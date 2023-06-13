@@ -25,23 +25,24 @@ class VacancyInfoViewModel(
     private val coroutineExceptionHandler = CoroutineExceptionHandler{ _, throwable ->
         throwable.printStackTrace()
     }
+    private val _resumes = MutableLiveData<List<Resume>>()
+    val resumes: LiveData<List<Resume>>
+        get() { return _resumes }
 
     private val _vacancyInfo = MutableLiveData<VacancyInfo?>()
     val vacancyInfo: LiveData<VacancyInfo?>
         get() { return _vacancyInfo }
 
-    private val _resumes = MutableLiveData<List<Resume>>()
-    val resumes: LiveData<List<Resume>>
-        get() { return _resumes }
-
-    fun getVacancyInfoByVacancyId(
+    suspend fun getVacancyInfoByVacancyId(
         vacancyId: String,
-    ) = launch(Dispatchers.IO + coroutineExceptionHandler) {
-        _vacancyInfo.postValue(
-            getVacancyInfoByVacancyIdUseCase.invoke(
-                vacancyId = vacancyId
+    ) {
+        withContext(Dispatchers.IO + coroutineExceptionHandler) {
+            _vacancyInfo.postValue(
+                getVacancyInfoByVacancyIdUseCase.invoke(
+                    vacancyId = vacancyId
+                )
             )
-        )
+        }
     }
 
     fun getResumesByUserId(

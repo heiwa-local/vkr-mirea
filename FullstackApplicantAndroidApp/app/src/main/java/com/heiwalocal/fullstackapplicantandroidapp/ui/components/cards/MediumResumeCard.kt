@@ -44,7 +44,7 @@ fun MediumResumeCard(
                 )
 
                 Text(
-                    text = "$salary руб/мес",
+                    text = "${salary.toDouble().toInt()} руб/мес",
                     style = ExtendedTheme.typography.h3,
                     color = ExtendedTheme.colors.text
                 )

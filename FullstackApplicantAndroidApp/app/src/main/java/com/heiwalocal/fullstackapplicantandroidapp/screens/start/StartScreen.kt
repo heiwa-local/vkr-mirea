@@ -28,17 +28,14 @@ fun StartScreen (
     viewModel: StartViewModel
 ) {
     LaunchedEffect(key1 = true) {
-        Log.e("tesss", "start")
         val isAuth = viewModel.checkAuth()
         if (isAuth) {
-            Log.e("tesss", "true")
             navController.navigate(NavigationRouter.Home.route) {
                 popUpTo(NavigationRouter.Home.route) {
                     inclusive = true
                 }
             }
         } else {
-            Log.e("tesss", "false")
             navController.navigate(NavigationRouter.Login.route) {
                 popUpTo(NavigationRouter.Login.route) {
                     inclusive = true
@@ -46,7 +43,6 @@ fun StartScreen (
             }
         }
     }
-
     Scaffold {
         Column(
             modifier = Modifier
@@ -56,9 +52,7 @@ fun StartScreen (
             verticalArrangement = Arrangement.Center
         ) {
             Image(
-                painter = painterResource(
-                    id = R.drawable.dude_on_chair
-                ),
+                painter = painterResource(id = R.drawable.dude_on_chair),
                 contentDescription = null
             )
             Text(

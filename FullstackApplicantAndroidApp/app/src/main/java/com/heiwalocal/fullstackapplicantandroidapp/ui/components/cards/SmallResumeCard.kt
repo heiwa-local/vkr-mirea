@@ -17,6 +17,7 @@ import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 fun SmallResumeCard(
     modifier: Modifier = Modifier,
     background: Color = ExtendedTheme.colors.largeButtonContent,
+    content: Color = ExtendedTheme.colors.largeButtonContent,
     jobTitle: String,
     salary: String,
     datetime: String,
@@ -38,7 +39,7 @@ fun SmallResumeCard(
             Text(
                 text = jobTitle,
                 style = ExtendedTheme.typography.h3,
-                color = ExtendedTheme.colors.text
+                color = content,
             )
             Row(
                 modifier = Modifier
@@ -48,16 +49,16 @@ fun SmallResumeCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "$salary руб/мес",
+                    text = "${salary.toDouble().toInt()} руб/мес",
                     style = ExtendedTheme.typography.h3,
-                    color = ExtendedTheme.colors.text
+                    color = content
                 )
                 Text(
                     modifier = Modifier
                         .padding(start = 16.dp),
                     text = datetime,
                     style = ExtendedTheme.typography.body2,
-                    color = ExtendedTheme.colors.hint
+                    color = content
                 )
             }
         }

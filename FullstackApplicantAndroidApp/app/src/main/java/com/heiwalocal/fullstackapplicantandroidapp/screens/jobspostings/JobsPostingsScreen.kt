@@ -50,6 +50,7 @@ fun JobsPostingsScreen(
                 items(jobsPostings) {
                     MediumJobPostingCard(
                         organizationName = it.organizationName.toString(),
+                        organizationLogoUrl = it.organizationLogoUrl.toString(),
                         jobTitle = it.jobTitle.toString(),
                         status = it.status.toString(),
                         datetime = it.datetime.toString(),

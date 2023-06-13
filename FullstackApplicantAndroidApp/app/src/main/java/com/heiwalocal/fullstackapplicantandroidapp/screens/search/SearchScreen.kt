@@ -166,7 +166,7 @@ fun SearchScreen(
                                 organizationName = it.organizationName.toString(),
                                 organizationLogoUrl = it.organizationLogoUrl.toString(),
                                 jobTitle = it.jobTitle.toString(),
-                                salary = "${it.salary.toString()} руб/мес ",
+                                salary = it.salary.toString(),
                                 address = it.address.toString(),
                             )
                         }

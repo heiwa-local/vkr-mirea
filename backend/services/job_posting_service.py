@@ -30,9 +30,7 @@ def get_jobs_postings(
                 f"v1.job_posting.datetime FROM v1.job_posting JOIN v1.resume ON v1.job_posting.resume_id=v1.resume.id " \
                 f"JOIN v1.vacancy ON v1.job_posting.vacancy_id=v1.vacancy.id JOIN v1.organization ON " \
                 f"v1.vacancy.organization_id=v1.organization.id WHERE v1.resume.applicant_id = {user_id}"
-        print(query)
         result = database_service.fetch_all(query)
-        print(result)
         jobs_postings = []
         for job_posting in result:
             jobs_postings.append(

@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.heiwalocal.fullstackapplicantandroidapp.ui.components.images.OrganizationLogoImage
 import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -21,6 +22,7 @@ import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 fun MediumJobPostingCard(
     modifier: Modifier = Modifier,
     organizationName: String,
+    organizationLogoUrl: String,
     jobTitle: String,
     status: String,
     datetime: String,
@@ -39,20 +41,10 @@ fun MediumJobPostingCard(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column {
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(
-                            ExtendedTheme.colors.largeButtonBackground
-                        ),
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(4.dp),
-                        imageVector = Icons.Default.Group,
-                        contentDescription = null
-                    )
-                }
+                OrganizationLogoImage(
+                    size = 40.dp,
+                    url = organizationLogoUrl
+                )
                 Text(
                     modifier = Modifier
                         .padding(top = 8.dp),

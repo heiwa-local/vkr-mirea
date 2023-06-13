@@ -9,6 +9,7 @@ import androidx.compose.material.icons.rounded.Timer
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.ExtendedTheme
 
@@ -31,12 +32,23 @@ fun VacancyInfoBaseInfoView(
         Text(
             modifier = Modifier,
             text = jobTitle,
-            style = ExtendedTheme.typography.h2
+            style = ExtendedTheme.typography.h2,
+            maxLines = 2
+        )
+        Text(
+            modifier = Modifier
+                .padding(top = 8.dp),
+            text = organizationName,
+            style = ExtendedTheme.typography.h3,
+            color = ExtendedTheme.colors.hint,
+            maxLines = 2,
+            textAlign = TextAlign.Center
         )
         Row(
             modifier = Modifier
                 .padding(top = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = grade,
@@ -49,16 +61,10 @@ fun VacancyInfoBaseInfoView(
         }
         Row(
             modifier = Modifier
-                .padding(top = 16.dp),
+                .padding(top = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(
-                text = organizationName,
-                style = ExtendedTheme.typography.h3
-            )
-            Text(
-                text = " – ",
-                style = ExtendedTheme.typography.h3
-            )
             Icon(
                 imageVector = Icons.Default.Place,
                 contentDescription = null

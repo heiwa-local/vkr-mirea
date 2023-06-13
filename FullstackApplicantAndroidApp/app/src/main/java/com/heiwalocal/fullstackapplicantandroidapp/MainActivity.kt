@@ -1,10 +1,16 @@
 package com.heiwalocal.fullstackapplicantandroidapp
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.findNavController
 import com.heiwalocal.fullstackapplicantandroidapp.navigation.AppNavigation
+import com.heiwalocal.fullstackapplicantandroidapp.navigation.NavigationRouter
 import com.heiwalocal.fullstackapplicantandroidapp.screens.addresume.AddResumeViewModel
 import com.heiwalocal.fullstackapplicantandroidapp.screens.home.HomeViewModel
 import com.heiwalocal.fullstackapplicantandroidapp.screens.jobspostings.JobsPostingViewModel
@@ -18,6 +24,7 @@ import com.heiwalocal.fullstackapplicantandroidapp.screens.signup.SignUpViewMode
 import com.heiwalocal.fullstackapplicantandroidapp.screens.start.StartViewModel
 import com.heiwalocal.fullstackapplicantandroidapp.screens.vacancyinfo.VacancyInfoViewModel
 import com.heiwalocal.fullstackapplicantandroidapp.ui.theme.FullstackApplicantAndroidAppTheme
+import kotlinx.coroutines.runBlocking
 
 @Suppress("DEPRECATION")
 class MainActivity : ComponentActivity() {

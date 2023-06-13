@@ -104,7 +104,7 @@ fun ResumeDetailScreen(
                 Text(
                     modifier = Modifier
                         .padding(16.dp),
-                    text = "${resume?.salary.toString()} руб/мес"
+                    text = "${resume?.salary?.toInt().toString()} руб/мес"
                 )
             }
             Text(
